@@ -1,0 +1,232 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Urmas Repinski - Тестовое Задание</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="google-site-verification" content="v6u7i24jgVhRRKYDwtq6zl5T86g4v9C7nzJ_UYw1LiU" />
+
+
+<link rel="stylesheet/less" type="text/css" href="styles.less" />
+<script src="//cdn.jsdelivr.net/npm/less@4.1.1" ></script>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+
+
+
+<table cellspacing="0" cellpadding="0" width="100%"  align="center" border="0">
+  <tr>
+	<td><h1>Urmas Repinski - Тестовое Задание - fuse8</h1></td>
+  </tr>
+  <tr>
+    <td height="3" bgcolor="#ff8a00"></td>
+  </tr>
+
+</table>
+
+
+<!-- Main Table -->
+<table cellspacing="0" cellpadding="0" width="100%" class="table__padding" border="0">
+<tr><td>
+
+<table cellspacing="0" cellpadding="0" width="100%"  align="center" border="0">
+  <tr>
+    <td class="header"><h1>Our Latest Developments</h1></td>
+  </tr>
+</table>
+
+
+
+<table cellspacing="0" cellpadding="0" border="0" class="table__padding_bottom">
+  <tr align="left">
+    <td><b>Filter</b></td>
+    <td class="td__filter"><input type="text" id="input__filter" class="rounded_corners" oninput="processFilter(this.value);"></td>
+  </tr>
+</table>
+
+
+<!-- Functional Table -->
+<table cellspacing="0" cellpadding="0" border="0" class="table__padding_bottom" width="100%" id="recordstable">
+</table>
+<!-- End of Functional Table --> 
+
+
+
+<table cellspacing="0" cellpadding="0" border="0" width="100%">
+  <tr align="center">
+    <td><input type="button" id="button__seemore" value="See More >"></td>
+  </tr>
+</table>
+
+</td></tr>
+</table>
+<!-- End of Main Table --> 
+
+
+
+
+<!-- Bottom Copyright Table --> 
+<table cellspacing="0" cellpadding="0" width="100%"  align="center" border="0">
+  <tr>
+    <td height="3" bgcolor="#ff8a00"></td>
+  </tr>
+  <tr>
+    <td>&copy; Urmas Repinski, urrimus@hotmail.com</td>
+  </tr>
+</table>
+<!-- End of Bottom Copyright Table --> 
+
+<script>
+
+w = window.innerWidth;
+w=w-40; // padding
+recordWidth=345;
+recordsInRow=(w/recordWidth).toFixed();
+if (recordsInRow<1) recordsInRow=1;
+
+
+
+
+allData=[];
+filteredData=[];
+
+
+$.ajax({
+	url:"https://603e38c548171b0017b2ecf7.mockapi.io/homes",
+	type:'GET',
+    error: function(jqXHR, textStatus, errorThrown) {
+            alert(jqXHR.status);
+        },
+	success: function(data)
+	{
+		allData=data;
+		filteredData=data;
+		showData(allData);
+		//file exists
+		
+	}
+});
+
+function showData(data){
+
+	var table = document.getElementById("recordstable");
+	while(table.childNodes.length>0){table.removeChild(table.lastChild);}
+
+
+
+	colC=-1;
+	rowC=0;
+	var tableRow="";
+		
+	if (data.length==0) {
+		var row = table.insertRow(-1);
+		var cell1 = row.insertCell(0);
+		cell1.innerHTML="No Records Found";
+		
+	}
+		
+	for (let i = 0; i < data.length; i++) {
+
+		colC++;
+		if (colC==recordsInRow) {colC=0; rowC++;}
+
+
+		var record = document.createElement('table');
+		record.setAttribute('class', 'record');
+		var row = record.insertRow(-1);
+		var cell1 = row.insertCell(0);
+
+		var a = document.createElement('a');
+		a.setAttribute('href', "/details/"+data[i].id);
+	
+
+		var container = document.createElement("div");
+		container.style="position: relative; text-align: center; color: white;"
+		var img = document.createElement("img");
+		img.src="https://via.placeholder.com/300x150/FF0000/FFFFFF?text="+data[i].title;
+		container.appendChild(img);
+	
+		if (data[i].type=="IndependentLiving") color="green";
+		if (data[i].type=="SupportAvailable") color="orange";
+	
+		var caption = document.createElement("div");
+		caption.style="position: absolute; bottom: 3px; right: 0px; padding:8px; background-color:"+color;
+		caption.innerHTML=data[i].type;
+		container.appendChild(caption);
+	
+		a.appendChild(container);
+	
+		cell1.appendChild(a);
+
+
+		var row = record.insertRow(-1);
+		var cell1 = row.insertCell(0);
+		var label = document.createElement("div");
+		label.style="padding-top:8px";
+		label.innerHTML="<b>"+data[i].title+"</b>";
+		cell1.appendChild(label);
+
+
+		var row = record.insertRow(-1);
+		var cell1 = row.insertCell(0);
+		var label = document.createElement("div");
+		label.innerHTML=data[i].address;
+		cell1.appendChild(label);
+
+		var row = record.insertRow(-1);
+		var cell1 = row.insertCell(0);
+		var label = document.createElement("div");
+		label.style="padding-top:8px";
+		label.innerHTML="New Properties for Sale from <b>£"+data[i].price+"</b>";
+		cell1.appendChild(label);
+	
+		var row = record.insertRow(-1);
+		var cell1 = row.insertCell(0);
+		var label = document.createElement("div");
+		label.innerHTML="Shared Ownership Available";
+		cell1.appendChild(label);
+
+
+		if (colC==0) tableRow = table.insertRow(-1);
+		var cell1=tableRow.insertCell(colC);
+		// insert padding
+		
+		if (colC < recordsInRow-1) cell1.style="padding-right:20px;";
+		if (rowC>0) cell1.style="padding-right:20px; padding-top:20px;";
+		cell1.appendChild(record);
+		
+
+		
+	}
+	
+
+}
+function processFilter(filter){
+	if (filter.length>2) {
+		filteredData=[];
+		for (let i = 0; i < allData.length; i++) {
+			if (allData[i].title.toLowerCase().includes(filter.toLowerCase())) {
+				filteredData.push(allData[i]);
+			}
+		}
+		showData(filteredData);
+	} else {
+		showData(allData);
+	}
+}
+
+
+</script>
+
+</body>
+</html>
+
+
+
