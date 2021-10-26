@@ -23,7 +23,7 @@
 
 
 
-
+<!DOCTYPE html>
 <html lang="ru">
 <head>
 	<meta charset="utf-8" />
@@ -121,7 +121,7 @@
 				<a href="#">Ещё тег</a>
 			</div>
 			
-			<div class="img1">
+			<div class="img1" style="padding-top: 30px">
 				<img src="./templates/site/img/bl5.png" alt="" />
 			</div>
 			<div class="dateCreated">26 октября 2021</div>
@@ -133,7 +133,7 @@
 				<a href="#">Франция</a>
 			</div>
 		
-			<div class="pagination"  style="justify-content: center">
+			<div class="pagination" style="justify-content: center">
 				<a href="#" class="active">1</a>
 				<a href="#">2</a>
 				<a href="#">3</a>
