@@ -1,0 +1,41 @@
+https://stackoverflow.com/questions/71020558/fill-matrix-with-two-numbers-in-a-spiral
+
+In the middle of matrix is number x. Matrix is filled with x in a spiral, while the rest is filled with y.
+
+Example:
+
+int x=4, y=6, v=7, s=9;
+OUTPUT:
+
+6 6 6 6 6 6 6 6 4
+4 4 4 4 4 4 4 6 4
+4 6 6 6 6 6 4 6 4
+4 6 4 4 x 6 4 6 4
+4 6 4 6 6 6 4 6 4
+4 6 4 4 4 4 4 6 4
+4 6 6 6 6 6 6 6 4
+Note: In the output instead of the letter x program should print 4, but I wrote x to make it easier for understanding task.
+
+#include <stdio.h>
+int main() {
+  int v = 7, s = 9, x = 4, y = 6, mat[7][9], i, j, l, k;
+  for (i = 0; i < v; i++)
+    for (j = 0; j < s; j++)
+      mat[i][j] = y;
+  for (i = 0; i < v; i++) {
+    for (j = 0; j < s; j++) {
+      // spiral goes here
+      // mat[i][j] = x;
+    }
+  }
+  for (i = 0; i < v; i++) {
+    for (j = 0; j < s; j++) 
+      printf("%4d", mat[i][j]);
+    printf("\n");
+  }
+  return 0;
+}
+
+
+-------------- 
+SOLUTION
