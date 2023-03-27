@@ -220,7 +220,7 @@ if (isset($_POST['date'])) {
  
  
 <?php 
-if (isset($_POST['date'])) {
+if (isset($_POST['date']) && $_POST['date']!="") {
 	echo printData($conn); 
 }
 ?>
