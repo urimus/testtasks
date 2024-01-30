@@ -44,10 +44,9 @@ int* intersect(int line1[], int line2[]) {
  
 int main()
 {
-	std::cout << "Hello METANIT.COM!";
 
 	
-    std::fstream myfile("1-lines.txt", std::ios_base::in);
+	std::fstream myfile("check-lines.txt", std::ios_base::in);
 
 	int M, N, c=0, px, py;
 	float a;
@@ -62,11 +61,11 @@ int main()
 	int** area = (int**)malloc(2003 * sizeof(int*));
 	for (int i = 0; i < 2003; i++)
 		area[i] = (int*)malloc(2003 * sizeof(int));
-    for (int i = 0; i < 2003; i++) {
-        for (int j = 0; j < 2003; j++) {
-            area[i][j] = 0;
-        }
-    }
+	for (int i = 0; i < 2003; i++) {
+		for (int j = 0; j < 2003; j++) {
+			area[i][j] = 0;
+		}
+	}
 	
 //	int* area = (int*)malloc((1001 * 1001) * sizeof(int));
 	
@@ -75,25 +74,25 @@ int main()
 	printf("N=%d ", N);
 
 	
-    while (myfile >> a)
-    {
+	while (myfile >> a)
+	{
 		lines[c][0]=(int)a; // x1
-        printf("x1=%d ", lines[c][0]);
+//        printf("x1=%d ", lines[c][0]);
 		
 		myfile >> a;
 		lines[c][1]=(int)a; // y1
-        printf("y1=%d ", lines[c][1]);
+//        printf("y1=%d ", lines[c][1]);
 		
 		myfile >> a;
 		lines[c][2]=(int)a; // x2
-        printf("x2=%d ", lines[c][2]);
+//        printf("x2=%d ", lines[c][2]);
 		
 		myfile >> a;
 		lines[c][3]=(int)a; // y2
-        printf("y2=%d ", lines[c][3]);
+//        printf("y2=%d ", lines[c][3]);
 		c++;
-    }
-    printf("\n");
+	}
+	printf("\n");
 	myfile.close();
 
 	int* inters; //pointer to hold address
@@ -104,7 +103,7 @@ int main()
 			inters=intersect(lines[i], lines[j]);
 			px=inters[0]; py=inters[1];
 			px=px+1001; py=py+1001;
-			if (px<0 || px>2000 || py<0 || py>2000) continue; // outside working area
+			if (px<1 || px>2001 || py<1 || py>2001) continue; // outside working area
 			area[px][py]=area[px][py]+1;
 			// taking into account calculation error
 			area[px][py+1]=area[px][py+1]+1;
@@ -118,6 +117,7 @@ int main()
 
 		}
 	}
+
 	// Intersections selection algorithm:
 	// 1. Selection point in area with maximum intersections
 	// 2. Setting in to 0 and all point around maximum point in distance of 99 to 0, according to task contiting distance between points >=100
