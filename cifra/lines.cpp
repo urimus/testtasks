@@ -119,10 +119,10 @@ int main()
 	}
 
 	// Intersections selection algorithm:
-	// 1. Selection point in area with maximum intersections
-	// 2. Setting in to 0 and all point around maximum point in distance of 99 to 0, according to task contiting distance between points >=100
+	// 1. Selecting point in area with maximum intersections
+	// 2. Setting it to 0 and all points around maximum point in distance of 99, according to task contiting distance between points >=100
 	// 3. Selecting next pont
-	// 4. N point in total
+	// 4. N points in total
 	
 	int maxInt, maxX, maxY;
 	ofstream MyFile("result.txt");
