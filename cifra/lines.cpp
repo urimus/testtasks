@@ -55,14 +55,19 @@ int main()
 	
 	int lines[M][4]; // x1, y1, x2, y2
 	
+	// taking into account calculation error 1px, can be set to 10....
+	int errSize=1;
+	
 	// Working Area [-1000 ... 1000]
+	int areaSize=2001+2*errSize;
+	
 	// Creating 2D array of pointers using Dynamic Memory
 	// allocation through malloc() function
-	int** area = (int**)malloc(2003 * sizeof(int*));
-	for (int i = 0; i < 2003; i++)
-		area[i] = (int*)malloc(2003 * sizeof(int));
-	for (int i = 0; i < 2003; i++) {
-		for (int j = 0; j < 2003; j++) {
+	int** area = (int**)malloc(areaSize * sizeof(int*));
+	for (int i = 0; i < areaSize; i++)
+		area[i] = (int*)malloc(areaSize * sizeof(int));
+	for (int i = 0; i < areaSize; i++) {
+		for (int j = 0; j < areaSize; j++) {
 			area[i][j] = 0;
 		}
 	}
@@ -96,6 +101,8 @@ int main()
 	myfile.close();
 
 	int* inters; //pointer to hold address
+	
+
 	
 	// storing intersections, every intersection in area array, value in array - number of intersections in every point
 	for (int i = 0; i < M; i++) {
@@ -131,8 +138,8 @@ int main()
 	for (int c = 0; c < N; c++) {
 	
 		maxInt=0, maxX=0, maxY=0;
-		for (int i = 0; i < 2001; i++) {
-			for (int j = 0; j < 2001; j++) {
+		for (int i = errSize; i < 2001+errSize; i++) {
+			for (int j = errSize; j < 2001+errSize; j++) {
 				if (area[i][j]>maxInt) {
 					maxInt=area[i][j];
 					maxX=i;
