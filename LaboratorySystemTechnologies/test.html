@@ -62,7 +62,7 @@
 <table cellspacing="2" cellpadding="0" width="100%">
 
         <tr align="center">
-			<td width="25%" valign="top" style = "border: #84bde4 1px solid;  background-color: #d0e7f7">
+			<td width="250px" valign="top" style = "border: #84bde4 1px solid;  background-color: #d0e7f7">
 				<table id="menuTable">
 					<tr><td>	<a href="javascript:algoritm()">Алгоритм</a></td></tr>
 					<tr><td>	<a href="javascript:test(1)">Тест 1</a></td></tr>
@@ -76,7 +76,7 @@
 				</table>
 			</td>
 			<td bgcolor="#d0e7f7" valign="top" align="center" >&hairsp;</td>
-			<td  width="75%" align="left" style = "border: #84bde4 1px solid;  background-color: #d0e7f7">
+			<td  width="750px" align="left" style = "border: #84bde4 1px solid;  background-color: #d0e7f7">
 				<table id="descTable"></table>
 			</td>
 
@@ -146,11 +146,11 @@ function algoritm() {
 
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML='<P>Для сериализации чисел 256...300 можно сохранять 2 символа для каждого числа, где первый указывает на то что число больше 255, второй определяет разницу Число-255. Первый символ может быть символом, который соответствует бы ASCII коду 0. Запятая в таком случае тоже не нужна, так как можно по первому символу определить число 2 байта или 1.';
+	cell1.innerHTML='<P>Для сериализации чисел 256...300 можно сохранять 2 символа для каждого числа, где первый указывает на то что число больше 255, второй определяет разницу Число-255. Первый символ может быть символом, который соответствует ASCII коду 0. Запятая в таком случае тоже не нужна, так как можно по первому символу определить число 2 байта или 1.';
 
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML='<P>Для сохранения 1 ASCII символа используется 1 Байт, что занимает Кол-во чисел Байт, если число <256, или 2 Байта, если число >=256, что в примерно в 3 раза меньше чем для обычной сериализации. Соответственные тесты показывают это.';
+	cell1.innerHTML='<P>Для сохранения 1 ASCII символа используется 1 Байт, что занимает Кол-во Чисел Байт, если число <256, или 2 Байта, если число >=256, что занимает 2*Кол-во Чисел Байт, что в примерно в 3 раза меньше чем для обычной сериализации. Соответственные тесты показывают это.';
 
 }
 
@@ -275,7 +275,7 @@ function test(id) {
 	arrJSON=JSON.stringify(arr);
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML="<div style='width: 700px; overflow:auto;'>"+arrJSON+"</div>";
+	cell1.innerHTML="<div style='width: 750px; overflow:auto;'>"+arrJSON+"</div>";
 
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
@@ -288,7 +288,7 @@ function test(id) {
 	serArr=serializeTestArray(arr);
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML="<div style='width: 700px; overflow:auto;'>"+serArr+"</div>";
+	cell1.innerHTML="<div style='width: 750px; overflow:auto;'>"+serArr+"</div>";
 
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
@@ -302,7 +302,7 @@ function test(id) {
 	arr2JSON=JSON.stringify(arr2);
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML="<div style='width: 700px; overflow:auto;'>"+arr2JSON+"</div>";
+	cell1.innerHTML="<div style='width: 750px; overflow:auto;'>"+arr2JSON+"</div>";
 
 	textYesNo="";
 	if (arrJSON==arr2JSON) {
@@ -312,7 +312,7 @@ function test(id) {
 	}
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML="<P>Массив до сериализации идентичен массиву после сериализации/десериализации? : <b>"+textYesNo+"</b>";
+	cell1.innerHTML="<P>Исходный Массив идентичен массиву после сериализации/десериализации? : <b>"+textYesNo+"</b>";
 
 	compression=((serArr.length/arrJSON.length)*100).toFixed(2);
 	var tableRow = table.insertRow(-1);
