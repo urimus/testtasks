@@ -142,37 +142,38 @@ function algoritm() {
 
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML='<P>Для сериализации чисел 1...255 можно сохранять 1 символ для каждого числа, который соответствовал бы ASCII коду, которому соответствцет данное число. Запятая в таком случае не нужна, так как каждое число кодируется 1 символом.';
+	cell1.innerHTML='<P>Для сериализации чисел 1...255 можно сохранять 1 символ для каждого числа, который соответствовал бы ASCII коду, которому соответствует данное число. Запятая в таком случае не нужна, так как каждое число кодируется 1 символом.';
 
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML='<P>Для сохранения 1 ASCII символа используется 1 Байт, что занимает Кол-во чисел Байт, что в 4 раза меньше чем для обычной сериализации. Соответственные тесты показывают это.';
+	cell1.innerHTML='<P>Для сериализации чисел 256...300 можно сохранять 2 символа для каждого числа, где первый указывает на то что число больше 255, второй определяет разницу Число-255. Первый символ может быть символом, который соответствует бы ASCII коду 0. Запятая в таком случае тоже не нужна, так как можно по первому символу определить число 2 байта или 1.';
 
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
-	cell1.innerHTML='<P>Задание сделано будет для чисел 1...255, требуемое для чисел 1...300 требует небольшой модификации алгоритма, можно использовать стандартные HTML символы для недостающих цифр.';
- }
+	cell1.innerHTML='<P>Для сохранения 1 ASCII символа используется 1 Байт, что занимает Кол-во чисел Байт, если число <256, или 2 Байта, если число >=256, что в примерно в 3 раза меньше чем для обычной сериализации. Соответственные тесты показывают это.';
+
+}
 
 function generateTestArray(id) {
 	arr=[];
 	if (id==1) {
 		for (let i = 0; i < 50; i++) {
-			arr[i]=Math.floor(Math.random() * 255) + 1;
+			arr[i]=Math.floor(Math.random() * 300) + 1;
 		}
 	}
 	if (id==2) {
 		for (let i = 0; i < 100; i++) {
-			arr[i]=Math.floor(Math.random() * 255) + 1;
+			arr[i]=Math.floor(Math.random() * 300) + 1;
 		}
 	}
 	if (id==3) {
 		for (let i = 0; i < 500; i++) {
-			arr[i]=Math.floor(Math.random() * 255) + 1;
+			arr[i]=Math.floor(Math.random() * 300) + 1;
 		}
 	}
 	if (id==4) {
 		for (let i = 0; i < 1000; i++) {
-			arr[i]=Math.floor(Math.random() * 255) + 1;
+			arr[i]=Math.floor(Math.random() * 300) + 1;
 		}
 	}
 	if (id==5) {
@@ -187,7 +188,7 @@ function generateTestArray(id) {
 	}
 	if (id==7) {
 		for (let i = 0; i < 900; i++) {
-			arr[i]=Math.floor(Math.random() * 155) + 100;
+			arr[i]=Math.floor(Math.random() * 200) + 100;
 		}
 	}
 	if (id==8) {
@@ -195,7 +196,7 @@ function generateTestArray(id) {
 		for (let i = 0; i < 900; i++) {
 			if (c==0) arr[i]=Math.floor(Math.random() * 9) + 1;
 			if (c==1) arr[i]=Math.floor(Math.random() * 89) + 10;
-			if (c==2) arr[i]=Math.floor(Math.random() * 155) + 100;
+			if (c==2) arr[i]=Math.floor(Math.random() * 200) + 100;
 			c++;
 			if (c==3) c=0;
 		}
@@ -207,7 +208,8 @@ function serializeTestArray(arr) {
 
 	serArr="";
 	for (let i = 0; i < arr.length; i++) {
-		serStr=String.fromCharCode(arr[i]);
+		if (arr[i]<256) serStr=String.fromCharCode(arr[i]);
+		if (arr[i]>=256) serStr=String.fromCharCode(0)+String.fromCharCode(arr[i]-255);
 		serArr=serArr+serStr;
 	}
 	return serArr;
@@ -218,6 +220,10 @@ function deserializeString(serArr) {
 	arr=[];
 	for (let i = 0; i < serArr.length; i++) {
 		arr[i]=serArr.charCodeAt(i);
+		if (arr[i]==0) {
+			arr[i]=serArr.charCodeAt(i+1)+255;
+			i++;
+		}
 	}
 	return arr;
  }
@@ -306,7 +312,7 @@ function test(id) {
 	var cell1=tableRow.insertCell(0);
 	cell1.innerHTML="<P>Массив до сериализации идентичен массиву после сериализации/десериализации? : <b>"+textYesNo+"</b>";
 
-	compression=Math.round((serArr.length/arrJSON.length)*100);
+	compression=((serArr.length/arrJSON.length)*100).toFixed(2);
 	var tableRow = table.insertRow(-1);
 	var cell1=tableRow.insertCell(0);
 	cell1.innerHTML="<P>Сжатие : <b>"+compression+" %</b>";	
