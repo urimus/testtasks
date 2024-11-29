@@ -218,12 +218,14 @@ function serializeTestArray(arr) {
 function deserializeString(serArr) {
 
 	arr=[];
+	c=0;
 	for (let i = 0; i < serArr.length; i++) {
-		arr[i]=serArr.charCodeAt(i);
-		if (arr[i]==0) {
-			arr[i]=serArr.charCodeAt(i+1)+255;
+		arr[c]=serArr.charCodeAt(i);
+		if (arr[c]==0) {
+			arr[c]=serArr.charCodeAt(i+1)+255;
 			i++;
 		}
+		c++;
 	}
 	return arr;
  }
